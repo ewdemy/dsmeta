@@ -1,4 +1,4 @@
-package com.mrcruz.dsmeta.entities;
+package com.mrcruz.dsmeta.entity;
 
 import lombok.*;
 
