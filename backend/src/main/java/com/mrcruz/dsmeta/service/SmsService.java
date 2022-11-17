@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.text.DecimalFormat;
 
 @Service
 public class SmsService {
@@ -33,8 +34,12 @@ public class SmsService {
        ;
         Sale sale = saleRepository.findById(saleId)
                 .orElseThrow(()-> new EntityNotFoundException("Venda não encontrada com id " + saleId));
+
         String date = sale.getDate().getMonthValue() + "/" + sale.getDate().getYear();
-        String msg = String.format("O vendedor %s foi destaque em %s com um total de R$ %.2f.",sale.getSellerName(),date,sale.getAmount());
+        String amount = String.format("%.1f",sale.getAmount());
+
+        String msg = "O vendedor " + sale.getSellerName() + " foi destaque em " + date
+                + " com um total de R$ " + amount;
 
         Twilio.init(twilioSid, twilioKey);
 
