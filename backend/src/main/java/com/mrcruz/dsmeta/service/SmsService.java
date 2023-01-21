@@ -36,7 +36,7 @@ public class SmsService {
                 .orElseThrow(()-> new EntityNotFoundException("Venda não encontrada com id " + saleId));
 
         String date = sale.getDate().getMonthValue() + "/" + sale.getDate().getYear();
-        String amount = String.format("%.1f",sale.getAmount());
+        String amount = String.format("%.2f",sale.getAmount());
 
         String msg = "O vendedor " + sale.getSellerName() + " foi destaque em " + date
                 + " com um total de R$ " + amount;
@@ -45,6 +45,7 @@ public class SmsService {
 
         PhoneNumber to = new PhoneNumber(twilioPhoneTo);
         PhoneNumber from = new PhoneNumber(twilioPhoneFrom);
+
 
         Message message = Message.creator(to, from, msg).create();
 
