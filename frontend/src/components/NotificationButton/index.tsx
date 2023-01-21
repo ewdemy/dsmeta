@@ -2,6 +2,7 @@ import icon from "../../assets/img/notification-icon.svg";
 import "./styles.css";
 import axios from 'axios';
 import { BASE_URL } from './../../utils/request';
+import {toast} from "react-toastify"
 type Props = {
   saleId: number;
 }
@@ -9,7 +10,9 @@ type Props = {
 function handleClick(id:number) {
   axios(`${BASE_URL}/sales/${id}/notification`)
     .then(resp => {
-      alert("FUNFOU")
+      toast.success("SMS Envidado com Sucesso!")
+    }).catch( err =>{
+      toast.error("Erro ao enviar SMS: " + err.response.data.message)
     })
 }
 
